@@ -19,6 +19,7 @@ To run unit testbenches using open-source tools on Linux:
 ```bash
 sudo apt update
 sudo apt install iverilog gtkwave
+```
 
 ### Running Testbenches (Icarus Verilog)
 ** 1. Clone the repository: **
