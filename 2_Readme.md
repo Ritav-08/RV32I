@@ -16,27 +16,27 @@
 ### Prerequisites
 To run unit testbenches using open-source tools on Linux:
 
-```text
+```bash
 sudo apt update
 sudo apt install iverilog gtkwave
 
 ### Running Testbenches (Icarus Verilog)
 ** 1. Clone the repository: **
 
-```text
+```bash
 git clone [https://github.com/your-username/riscv-rv32i-core.git](https://github.com/your-username/riscv-rv32i-core.git)
 cd riscv-rv32i-core
 
 ** 2. Simulate the Program Counter (PC): **
 
-```text
+```bash
 iverilog -o sim/tb_pc.out rtl/pc.v tb/tb_pc.v
 vvp sim/tb_pc.out
 gtkwave sim/tb_pc.vcd
 
 ** 3. Simulate the PC Adder: **
 
-```text
+```bash
 iverilog -o sim/tb_pc_adder.out rtl/pc_adder.v tb/tb_pc_adder.v
 vvp sim/tb_pc_adder.out
 
