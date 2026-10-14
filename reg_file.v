@@ -6,7 +6,7 @@ module reg_file(
    input  wire [4:0] rs1, 
    input  wire [4:0] rs2, 
    input  wire [4:0] rd, 
-   input  wire [4:0] wd, 
+   input  wire [31:0] wd, 
    output wire [31:0] rd1, 
    output wire [31:0] rd2
 );
