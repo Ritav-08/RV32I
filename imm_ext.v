@@ -1,6 +1,6 @@
 
 `timescale 1ns / 1ps
-
+   
 module imm_ext(
    input wire [31:0] inst, 
    input wire [2:0] imm_sel, 
