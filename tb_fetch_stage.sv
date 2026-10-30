@@ -32,5 +32,5 @@ module tb_fetch_stage;
       #100 $finish;
       
    end : stimulus_fs
-   
+
 endmodule
