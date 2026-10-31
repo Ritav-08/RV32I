@@ -21,32 +21,29 @@ The project is developed on **Ubuntu Linux** using a multi-tool EDA workflow:
 | **Synthesis & FPGA Tool** | AMD Xilinx Vivado / Intel Quartus Prime | RTL synthesis, layout, and hardware targeting |
 | **Environment** | VS Code, Git, Linux Terminal | Code editing, version control, and build automation |
 
----
-## ⏱️ Progress & Completed Milestones
-### 1. Environment Setup & Architecture Planning
-- Configured EDA simulation toolchains (Questa Simulator, Icarus Verilog, GTKWave) on Ubuntu Linux.
-- Established project directory structure, Git version tracking, and simulation scripts.
-- Defined the RV32I architecture roadmap, instruction encoding formats (R, I, S, B, U, J), and datapath control flow.
-### 2. Implemented & Verified RTL Modules
-- **Program Counter (PC):**
-  - Designed synchronous register logic managing the instruction address pointer.
-  - Supports synchronous reset and load/increment logic.
-  - Verified functional operation via dedicated simulation testbenches.
-- **PC Adder / Incrementer:**
-  - Implemented combinational hardware adder for sequential instruction address generation (PC + 4) and branch target calculations.
-  - Functionally verified across address boundaries in simulation.
----
 ## 📂 Repository Structure
 ```text
 .
-├── rtl/                    # Verilog RTL source files
+├── rtl/                    # Verilog RTL source files pc,adder,imem
 │   ├── pc.v                # Program Counter register logic
-│   ├── pc_adder.v          # Program Counter incrementer/adder
-│   ├── alu.v               # Arithmetic Logic Unit (In Progress)
-│   └── regfile.v           # 32x32-bit Register File (In Progress)
-├── tb/                     # Testbenches for functional unit verification
-│   ├── tb_pc.v             # Program Counter testbench
-│   └── tb_pc_adder.v       # PC Adder testbench
-├── sim/                    # Simulation build artifacts and waveform files (.vcd / .wlf)
-├── docs/                   # ISA specs, memory maps, and block diagrams
-└── README.md               # Project documentation
+│   ├── adder.v             # Program Counter incrementer/adder
+│   ├── imem.v              # Combinational Read Only Instruction Memory
+│   ├── fetch_stage.v       # wired first three modules (PC, Adder, Imem) into a single unit
+│   └── regfile.v           # 32x32-bit Register File
+│   ├── alu.v               # Arithmetic Logic Unit
+│   └── imm_ext.v           # The 32-bit Signed Immediate Extender/ Immediate Extractor
+│   └── dmem.v              # Synchronous Write, and Read Data Memory
+│   └── control_unit.v      # The Control Unit
+│   └── riscv_top.v         # The Final Integration/ Top Level Instantiation
+
+├── sim/                     # Testbenches for functional unit verification
+│   ├── tb_pc.sv            # Program Counter testbench
+│   └── tb_pc_adder.sv      # PC Adder testbench
+│   └── tb_imm_ext.sv       # Self Checking Scoreboard testbench for Immediate Extender
+│   └── tb_fetch_stage.sv   # Fetch Stage verification testbench
+│   └── tb_reg_file.sv      # Self Checking Scoreboard testbench for Register File
+│   └── tb_alu.sv           # Self Checking Scoreboard testbench for the ALU
+│   └── tb_riscv_top.sv     # Top Level System Simulation Testbench (Pending)
+├── wav/                    # Simulation build artifacts and waveform files (.vcd / .wlf) (pending)
+├── docs/                   # ISA specs, memory maps, and block diagrams (pending)
+└── README.md               # Project documentation (current)
