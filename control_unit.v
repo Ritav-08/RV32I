@@ -121,5 +121,5 @@ module control_unit(
    assign result_src = result_src_reg;
    assign branch     = branch_reg;
    assign jump       = jump_reg;
-   
+
 endmodule
