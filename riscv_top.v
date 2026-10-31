@@ -90,5 +90,5 @@ module riscv_top(
    
    //alu immediate result debug monitor
    assign alu_result_debug = alu_result;
-   
+
 endmodule
