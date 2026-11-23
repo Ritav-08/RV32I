@@ -1,16 +1,5 @@
-   
-`timescale 1ns / 1ps
 
-localparam ADD  = 4'b0000, 
-           SUB  = 4'b0001, 
-           AND  = 4'b0010, 
-           OR   = 4'b0011, 
-           XOR  = 4'b0100, 
-           SLL  = 4'b0101, 
-           SRL  = 4'b0110, 
-           SRA  = 4'b0111, 
-           SLT  = 4'b1000, 
-           SLTU = 4'b1001;
+`timescale 1ns / 1ps
 
 module alu(
    input wire [31:0] a, 
@@ -19,8 +8,19 @@ module alu(
    output reg [31:0] alu_result,
    output wire zero
 );
+
+   localparam ADD  = 4'b0000, 
+             SUB  = 4'b0001, 
+             AND  = 4'b0010, 
+             OR   = 4'b0011, 
+             XOR  = 4'b0100, 
+             SLL  = 4'b0101, 
+             SRL  = 4'b0110, 
+             SRA  = 4'b0111, 
+             SLT  = 4'b1000, 
+             SLTU = 4'b1001;
    
-   assign zero = (alu_result == 32'h0000_0000)? 1'b1 : 1'b0;
+   assign zero = (alu_result == 32'd0);
    
    always@(*) begin
       case(alu_ctrl)                                                   //parameter value
