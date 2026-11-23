@@ -1,4 +1,4 @@
- 
+
 `timescale 1ns / 1ps
 
 module riscv_top(
@@ -26,11 +26,15 @@ module riscv_top(
    wire zero;                 //FLAGS
    wire [31:0] rd_data;       //u_dmem :: u_wb_mux
    wire [31:0] alu_result;    //u_alu :: u_dmem :: MONITOR
+   wire pc_src = jump | (branch & zero);
+   wire [31:0] pc_target = pc_out + imm_out;
    
    
 //Components wired together
    fetch_stage u_fetch(.clk(clk), 
                        .rst_n(rst_n), 
+                       .pc_src(pc_src), 
+                       .pc_target(pc_target), 
                        .pc_out(pc_out), 
                        .mem_inst(inst)
                       );
@@ -90,5 +94,5 @@ module riscv_top(
    
    //alu immediate result debug monitor
    assign alu_result_debug = alu_result;
-
+   
 endmodule
