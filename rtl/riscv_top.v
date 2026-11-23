@@ -9,21 +9,23 @@ module riscv_top(
    output wire [31:0] alu_result_debug 
 );
    
-//Intermediate wirings
+//Intermediate wirings          will connect to these elements
    wire [31:0] inst;          //u_fetch :: u_control :: u_inst
+   wire [31:0] pc_plus4;
    wire [2:0] imm_src;        //u_control :: u_imm_ext
    wire reg_write;            //u_control :: u_reg_file
    wire result_src;           //u_control :: u_wb_mux
    wire mem_write;            //u_control :: u_dmem
    wire [3:0] alu_ctrl;       //u_control :: u_alu
    wire alu_src;              //u_control :: alu_src_b
-   wire branch;               //u_control :: FLAGS
-   wire jump;                 //u_control :: FLAGS
+   wire branch;               //u_control :: pc_target
+   wire jump;                 //u_control :: pc_target
+   
    wire [4:0] rs1, rs2, rd;   //u_inst :: u_reg_file
    wire [31:0] wd, rd1, rd2;  //u_reg_file :: alu_src_b :: u_dmem :: u_wb_mux
    wire [31:0] imm_out;       //u_imm_ext :: alu_src_b
    wire [31:0] alu_b;         //alu_src_b :: u_alu
-   wire zero;                 //FLAGS
+   wire zero;                 //pc_target
    wire [31:0] rd_data;       //u_dmem :: u_wb_mux
    wire [31:0] alu_result;    //u_alu :: u_dmem :: MONITOR
    wire pc_src = jump | (branch & zero);
@@ -36,7 +38,8 @@ module riscv_top(
                        .pc_src(pc_src), 
                        .pc_target(pc_target), 
                        .pc_out(pc_out), 
-                       .mem_inst(inst)
+                       .mem_inst(inst),
+                       .pc_plus4(pc_plus4)
                       );
    
    control_unit u_control (.op(inst[6:0]), 
@@ -58,6 +61,7 @@ module riscv_top(
    assign rd = inst[11:7];
    
    reg_file u_reg_file (.clk(clk), 
+                        .rst_n(rst_n), 
                         .we(reg_write), 
                         .rs1(rs1), 
                         .rs2(rs2), 
@@ -90,7 +94,7 @@ module riscv_top(
                );
    
    //writeback mux (u_wb_mux) for reg_file
-   assign wd = result_src ? rd_data : alu_result;
+   assign wd = jump ? pc_plus4 : (result_src ? rd_data : alu_result);
    
    //alu immediate result debug monitor
    assign alu_result_debug = alu_result;
