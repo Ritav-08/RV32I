@@ -26,6 +26,6 @@ module imem #( parameter MEM_WORDS = 256 )
    end   
    
 //Combinational read: extract word index by shifting/dropping bottom 2 bits [31:2]
-   assign inst = rom[ addr[31:2] ];
+   assign inst = rom[ addr[9:2] ];
    
 endmodule
