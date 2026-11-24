@@ -16,12 +16,12 @@ module dmem #(parameter MEM_WORDS = 256)(
 //synchronus write (sequential)
    always@(posedge clk) begin
       if(we) begin
-         ram[ addr[31:2] ] <= wd;
+         ram[ addr[9:2] ] <= wd;
       end
    end
    
 //asynchronus read (combinational)
-   assign rd_data = ram[ addr[31:2] ];
+   assign rd_data = ram[ addr[9:2] ];
    
    initial begin
       for(i = 0; i < MEM_WORDS; i = i + 1) begin 
