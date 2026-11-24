@@ -24,7 +24,7 @@ module reg_file(
 
 //sequential write (x0 protected, cannot be overwritten)
    always@ (posedge clk, negedge rst_n) begin
-      if(rst_n) begin
+      if(!rst_n) begin
          for(i = 0; i < 32; i = i + 1) begin
             rf[i] = 32'd0;
          end
