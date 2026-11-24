@@ -43,7 +43,7 @@ module control_unit(
       reg_write_reg  = 1'b0;
       result_src_reg = 1'b0;
       mem_write_reg  = 1'b0;
-      alu_ctrl_reg   = 4'b0000;
+//      alu_ctrl_reg   = 4'b0000;
       alu_src_reg    = 1'b0;
       branch_reg     = 1'b0;
       jump_reg       = 1'b0;
@@ -62,7 +62,7 @@ module control_unit(
          il_type: begin
             imm_src_reg    = 3'b000;
             alu_src_reg    = 1'b1;
-            alu_ctrl_reg   = 4'b0000;
+//            alu_ctrl_reg   = 4'b0000;
             mem_write_reg  = 1'b0;
             result_src_reg = 1'b1;
             reg_write_reg  = 1'b1;
@@ -70,7 +70,7 @@ module control_unit(
          s_type: begin
             imm_src_reg   = 3'b001;
             alu_src_reg   = 1'b1;
-            alu_ctrl_reg  = 4'b0000;
+//            alu_ctrl_reg  = 4'b0000;
             mem_write_reg = 1'b1;
             reg_write_reg = 1'b0;
          end 
@@ -121,5 +121,5 @@ module control_unit(
    assign result_src = result_src_reg;
    assign branch     = branch_reg;
    assign jump       = jump_reg;
- 
+   
 endmodule
